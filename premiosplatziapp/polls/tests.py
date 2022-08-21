@@ -1,7 +1,6 @@
-from audioop import reverse
-from datetime import datetime, timedelta
-from urllib import response
+from datetime import timedelta
 
+from django.urls.base import reverse
 from django.utils import timezone
 from django.test import TestCase
 
@@ -33,7 +32,7 @@ class QuestionIndexViewTests(TestCase):
         """If no question exist, an appropiate message is displayed"""
         response = self.client.get(reverse("polls:index"))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "No polls are available.")
+        self.assertContains(response, "No polls are available")
         self.assertQuerysetEqual(response.context["latest_question_list"], [])
 
 
@@ -44,7 +43,7 @@ class QuestionIndexViewTests(TestCase):
         """
         create_question("Future question", days=30)
         response = self.client.get(reverse("polls:index"))
-        self.assertContains(response, "No polls are available.")
+        self.assertContains(response, "No polls are available")
         self.assertQuerysetEqual(response.context["latest_question_list"], [])
 
     def test_past_questions(self):
@@ -76,6 +75,7 @@ class QuestionIndexViewTests(TestCase):
         """
         past_question1 = create_question(question_text="Past question 1", days=-30)
         past_question2 = create_question(question_text="Past question 2", days=-40)
+        response = self.client.get(reverse("polls:index"))
         self.assertQuerysetEqual(
             response.context["latest_question_list"],
             [past_question1, past_question2]

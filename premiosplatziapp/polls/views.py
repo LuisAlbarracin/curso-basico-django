@@ -1,12 +1,10 @@
-from audioop import reverse
-from http.client import HTTPResponse
-from urllib.parse import quote_from_bytes
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import Question, Choice
 from django.views import generic
 from django.utils import timezone
+
+from .models import Question, Choice
 
 """
 # Create your views here.
